@@ -1,5 +1,6 @@
 # 🪐 SpaceGravity
 
+<img width="859" height="583" alt="SpaceGravity" src="https://github.com/user-attachments/assets/ce858e01-49f3-40f2-80bf-00fc5f5e78f3" />
 
 A lightweight, physically accurate 2D gravity simulation system for Unity. Simulates N-body gravitational interactions with realistic orbital mechanics - planets orbit stars, moons orbit planets, and everything pulls on everything else.
 
