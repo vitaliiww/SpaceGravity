@@ -2,86 +2,105 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GravityManager : MonoBehaviour
+namespace SpaceGravity
 {
-    public static GravityManager Instance;
-
-    public double metersPerUnit;
-    public double g;
-    public double simulationSpeed = 1.0;
-
-    public GravityBody star;
-    
-    private static readonly List<GravityBody> Bodies = new();
-
-    public static void Register(GravityBody body) => Bodies.Add(body);
-    public static void Unregister(GravityBody body) => Bodies.Remove(body);
-
-    private void Init(GravityBody body)
+    public class GravityManager : MonoBehaviour
     {
-        body.hillSphere = HillSphere(body);
-        if (!body.parent) body.parent = GetParent(body);
-    }
+        public static GravityManager Instance;
 
-    private void Awake()
-    {
-        if (!Instance) Instance = this;
-    }
+        public double metersPerUnit = 10e9;
+        public double g;
+        public double simulationSpeed = 1.0;
 
-    private void Start()
-    {
-        foreach (var body in Bodies)
-        {
-            Init(body);
-            SetInitialVelocity(body);
-        }
-    }
-
-    private void Update()
-    {
-        var dt = Time.deltaTime * simulationSpeed;
+        public GravityBody star;
         
-        foreach (var body in Bodies)
+        private static readonly List<GravityBody> Bodies = new();
+
+        public static void Register(GravityBody body) => Bodies.Add(body);
+        public static void Unregister(GravityBody body) => Bodies.Remove(body);
+
+        private void Awake()
         {
-            if (!body.parent) continue;
-            
-            var dir = body.parent.position - body.position;
-            var r = dir.magnitude;
-            
-            var m1m2 = g * body.mass * body.parent.mass;
-            var f = m1m2 / (r * r);
-
-            var acceleration = dir.normalized * (f / body.mass);
-            body.velocity += acceleration * dt;
-            body.position += body.velocity * dt;
-            
-            body.transform.position = body.position / metersPerUnit;
+            if (!Instance) Instance = this;
         }
-    }
 
-    private void SetInitialVelocity(GravityBody body)
-    {
-        if (!body.parent) return;
-    
-        var dir = body.parent.position - body.position;
-        var v = Math.Sqrt(g * body.parent.mass / dir.magnitude); // √(GM/r)
+        private void Start()
+        {
+            foreach (var body in Bodies)
+            {
+                SetInitialVelocity(body);
+            }
+        }
 
-        var perpendicular = new Vector2Double(-dir.normalized.y, dir.normalized.x);
-        body.velocity = perpendicular * v;
-    }
+        private void Update()
+        {
+            var dt = Time.deltaTime * simulationSpeed;
+            
+            foreach (var body in Bodies)
+            {
+                body.Acceleration = Vector2Double.zero;
 
-    public GravityBody GetParent(GravityBody body)
-    {
-        var r = body.hillSphere;
+                foreach (var other in Bodies)
+                {
+                    if (body == other) continue;
 
-        return null;
-    }
+                    var dir = other.position - body.position;
+                    var r = dir.magnitude;
 
-    public double HillSphere(GravityBody body)
-    {
-        var a = Vector2Double.Distance(body.position, star.position);
-        var m = body.mass;
-        var M = star.mass;
-        return a * Math.Pow(m / (3 * (M + m)), 1.0/3.0);
+                    body.Acceleration += dir.normalized * (g * other.mass / (r * r));
+                }
+            }
+
+            foreach (var body in Bodies)
+            {
+                body.Velocity += body.Acceleration * dt;
+                body.position += body.Velocity * dt;
+
+                body.transform.position = body.position / metersPerUnit;
+            }
+        }
+
+        private GravityBody FindDominantBody(GravityBody body)
+        {
+            foreach (var other in Bodies)
+            {
+                if (body == other) continue;
+
+                var hill = GravityUtils.HillSphere(other, star);
+
+                var dist = Vector2Double.Distance(body.position, other.position);
+
+                if (dist < hill)
+                {
+                    return other;
+                }
+            }
+
+            return star; // fallback
+        }
+
+        private void SetInitialVelocity(GravityBody body)
+        {
+            if (body == star) return;
+            
+            var dominant = FindDominantBody(body);
+            if (!dominant)
+            {
+                Debug.LogWarning($"No dominant body found for {body.name}");
+                return;
+            }
+            
+            var dir = dominant.position - body.position;
+            var r = dir.magnitude;
+
+            var e = body.eccentricity;
+            var a = r / (1.0 - e);
+
+            var v = Math.Sqrt(g * dominant.mass * (2.0 / r - 1.0 / a));
+
+            var perpendicular = new Vector2Double(-dir.normalized.y, dir.normalized.x);
+
+            body.Velocity = dominant.Velocity + perpendicular * v;
+        }
     }
 }

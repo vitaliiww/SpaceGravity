@@ -1,16 +1,26 @@
 using UnityEngine;
 
-public class GravityBody : MonoBehaviour
+namespace SpaceGravity
 {
-    public double mass;
-    public Vector2Double position; // only used for calculations
-    public GravityBody parent;
-    
-    [HideInInspector] public Vector2Double velocity;
-    [HideInInspector] public double hillSphere;
-    
-    private void Awake()
+    public class GravityBody : MonoBehaviour
     {
-        GravityManager.Register(this);
+        public double mass;
+        public Vector2Double position; // only used for calculations
+    
+        [Range(0, 1)]
+        public double eccentricity;
+    
+        public Vector2Double Velocity { get; set; }
+        public Vector2Double Acceleration { get; set; }
+    
+        private void Awake()
+        {
+            GravityManager.Register(this);
+        }
+
+        private void OnDisable()
+        {
+            GravityManager.Unregister(this);
+        }
     }
 }

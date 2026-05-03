@@ -206,7 +206,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 150, y: 150, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -227,11 +227,7 @@ MonoBehaviour:
   position:
     x: 0
     y: 0
-  parent: {fileID: 0}
-  velocity:
-    x: 0
-    y: 0
-  hillSphere: 0
+  eccentricity: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,7 +334,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 1000
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -434,7 +430,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.24446185, g: 0.6226415, b: 0.20852618, a: 1}
@@ -456,7 +452,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 11, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 965010738}
@@ -476,13 +472,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GravityBody
   mass: 5.972e+24
   position:
-    x: 149600000000
+    x: 147100000000
     y: 0
-  parent: {fileID: 432944799}
-  velocity:
-    x: 0
-    y: 0
-  hillSphere: 0
+  eccentricity: 0.017000000923871994
 --- !u!1 &602287325
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,13 +507,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GravityBody
   mass: 7.342e+22
   position:
-    x: 149984400000
+    x: 147462600000
     y: 0
-  parent: {fileID: 539695130}
-  velocity:
-    x: 0
-    y: 0
-  hillSphere: 0
+  eccentricity: 0.05490000173449516
 --- !u!212 &602287327
 SpriteRenderer:
   serializedVersion: 2
@@ -569,10 +557,10 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.6132076, g: 0.6132076, b: 0.6132076, a: 1}
+  m_Color: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -591,7 +579,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12, y: 0, z: 0}
-  m_LocalScale: {x: 0.35, y: 0.35, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1834267951}
@@ -682,7 +670,7 @@ TrailRenderer:
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 5
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -855,7 +843,7 @@ TrailRenderer:
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 5
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -997,7 +985,7 @@ TrailRenderer:
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 5
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -1119,7 +1107,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.754717, g: 0.71393025, b: 0.5802777, a: 1}
@@ -1141,7 +1129,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 862876318}
@@ -1161,13 +1149,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GravityBody
   mass: 4.867e+24
   position:
-    x: 108200000000
+    x: 107500000000
     y: 0
-  parent: {fileID: 432944799}
-  velocity:
-    x: 0
-    y: 0
-  hillSphere: 0
+  eccentricity: 0.0066999997943639755
 --- !u!1 &1834267950
 GameObject:
   m_ObjectHideFlags: 0
@@ -1253,7 +1237,7 @@ TrailRenderer:
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 5
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -1375,7 +1359,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
@@ -1397,7 +1381,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1387530315}
@@ -1417,13 +1401,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GravityBody
   mass: 3.285e+23
   position:
-    x: 57910000000
+    x: -46000000000
     y: 0
-  parent: {fileID: 432944799}
-  velocity:
-    x: 0
-    y: 0
-  hillSphere: 0
+  eccentricity: 0.20559999346733093
 --- !u!1 &1964476667
 GameObject:
   m_ObjectHideFlags: 0
@@ -1468,11 +1448,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c69d8457793b4ebcb428e5d6312df14d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GravityManager
-  metersPerUnit: 10000000000
+  metersPerUnit: 100000000
   g: 0.00000000006674
   simulationSpeed: 864000
   star: {fileID: 432944799}
-  subSteps: 100
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
