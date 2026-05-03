@@ -8,9 +8,9 @@ namespace SpaceGravity
     {
         public static GravityManager Instance;
 
-        public double metersPerUnit = 10e9;
-        public double g;
-        public int simulationSpeed = 1;
+        public double metersPerUnit = 100000000;
+        public double g = 6.674E-11;
+        public int simulationSpeed = 86400;
 
         public GravityBody star;
         
@@ -62,6 +62,12 @@ namespace SpaceGravity
 
         private GravityBody FindDominantBody(GravityBody body)
         {
+            if (!star)
+            {
+                Debug.LogError("[GravityManager] Please, specify the star of system");
+                return null;
+            }
+            
             foreach (var other in Bodies)
             {
                 if (body == other) continue;
@@ -81,6 +87,11 @@ namespace SpaceGravity
 
         private void SetInitialVelocity(GravityBody body)
         {
+            if (!star)
+            {
+                Debug.LogError("[GravityManager] Please, specify the star of system");
+                return;
+            }
             if (body == star) return;
             
             var dominant = FindDominantBody(body);
