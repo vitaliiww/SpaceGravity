@@ -10,7 +10,7 @@ namespace SpaceGravity
 
         public double metersPerUnit = 10e9;
         public double g;
-        public double simulationSpeed = 1.0;
+        public int simulationSpeed = 1;
 
         public GravityBody star;
         
