@@ -2234,7 +2234,7 @@ MonoBehaviour:
   m_MinValue: 1
   m_MaxValue: 1000
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 1000
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3486,7 +3486,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GravityManager
   metersPerUnit: 100000000
   g: 0.00000000006674
-  simulationSpeed: 864000
+  simulationSpeed: 86400
+  subSteps: 1
   star: {fileID: 432944799}
 --- !u!1 &2020079967
 GameObject:

@@ -4,20 +4,22 @@ using UnityEngine;
 
 namespace SpaceGravity
 {
-    public class GravityManager : MonoBehaviour
+    public class GravityManager2D : MonoBehaviour
     {
-        public static GravityManager Instance;
+        public static GravityManager2D Instance;
 
         public double metersPerUnit = 100000000;
         public double g = 6.674E-11;
         public int simulationSpeed = 86400;
+        [Tooltip("High simulation speed leads to position miscalculation. Substeps help to deal with that problem.")]
+        public int subSteps = 1;
 
-        public GravityBody star;
+        public GravityBody2D star;
         
-        private static readonly List<GravityBody> Bodies = new();
+        private static readonly List<GravityBody2D> Bodies = new();
 
-        public static void Register(GravityBody body) => Bodies.Add(body);
-        public static void Unregister(GravityBody body) => Bodies.Remove(body);
+        public static void Register(GravityBody2D body) => Bodies.Add(body);
+        public static void Unregister(GravityBody2D body) => Bodies.Remove(body);
 
         private void Awake()
         {
@@ -32,14 +34,37 @@ namespace SpaceGravity
             }
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            var dt = Time.deltaTime * simulationSpeed;
-            
+            var dt = Time.fixedDeltaTime * simulationSpeed;
+            var subDt = dt / subSteps;
+
+            for (var i = 0; i < subSteps; i++)
+            {
+                Step(subDt);
+            }
+
             foreach (var body in Bodies)
             {
-                body.Acceleration = Vector2Double.zero;
+                body.transform.position = body.position / metersPerUnit;
+            }
+        }
 
+        private void Step(double dt)
+        {
+            foreach (var body in Bodies)
+            {
+                body.position += body.Velocity * dt + body.Acceleration * (0.5 * dt * dt);
+            }
+
+            foreach (var body in Bodies)
+            {
+                body.PrevAcceleration = body.Acceleration;
+                body.Acceleration = Vector3Double.zero;
+            }
+
+            foreach (var body in Bodies)
+            {
                 foreach (var other in Bodies)
                 {
                     if (body == other) continue;
@@ -53,14 +78,11 @@ namespace SpaceGravity
 
             foreach (var body in Bodies)
             {
-                body.Velocity += body.Acceleration * dt;
-                body.position += body.Velocity * dt;
-
-                body.transform.position = body.position / metersPerUnit;
+                body.Velocity += (body.PrevAcceleration + body.Acceleration) * (0.5 * dt);
             }
         }
 
-        private GravityBody FindDominantBody(GravityBody body)
+        private GravityBody2D FindDominantBody(GravityBody2D body)
         {
             if (!star)
             {
@@ -72,7 +94,7 @@ namespace SpaceGravity
             {
                 if (body == other) continue;
 
-                var hill = GravityUtils.HillSphere(other, star);
+                var hill = GravityUtils.HillSphere2D(other, star);
 
                 var dist = Vector2Double.Distance(body.position, other.position);
 
@@ -85,7 +107,7 @@ namespace SpaceGravity
             return star; // fallback
         }
 
-        private void SetInitialVelocity(GravityBody body)
+        private void SetInitialVelocity(GravityBody2D body)
         {
             if (!star)
             {

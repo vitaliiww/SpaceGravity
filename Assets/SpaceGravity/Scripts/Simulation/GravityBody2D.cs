@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace SpaceGravity
 {
-    public class GravityBody : MonoBehaviour
+    public class GravityBody2D : MonoBehaviour
     {
         public double mass;
         public Vector2Double position; // only used for calculations
@@ -12,15 +12,16 @@ namespace SpaceGravity
     
         public Vector2Double Velocity { get; set; }
         public Vector2Double Acceleration { get; set; }
+        public Vector2Double PrevAcceleration { get; set; }
     
         private void Awake()
         {
-            GravityManager.Register(this);
+            GravityManager2D.Register(this);
         }
 
         private void OnDisable()
         {
-            GravityManager.Unregister(this);
+            GravityManager2D.Unregister(this);
         }
     }
 }
