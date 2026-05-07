@@ -575,6 +575,7 @@ MonoBehaviour:
     x: 0
     y: 0
   eccentricity: 0
+  semiMajorAxis: 0
 --- !u!1 &449292194
 GameObject:
   m_ObjectHideFlags: 0
@@ -996,7 +997,8 @@ MonoBehaviour:
   position:
     x: 147100000000
     y: 0
-  eccentricity: 0.017000000923871994
+  eccentricity: 0.016699999570846558
+  semiMajorAxis: 0
 --- !u!1 &602287325
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,6 +1034,7 @@ MonoBehaviour:
     x: 147462600000
     y: 0
   eccentricity: 0.05490000173449516
+  semiMajorAxis: 0
 --- !u!212 &602287327
 SpriteRenderer:
   serializedVersion: 2
@@ -2816,6 +2819,7 @@ MonoBehaviour:
     x: 107500000000
     y: 0
   eccentricity: 0.0066999997943639755
+  semiMajorAxis: 0
 --- !u!1 &1526282677
 GameObject:
   m_ObjectHideFlags: 0
@@ -3440,6 +3444,7 @@ MonoBehaviour:
     x: -46000000000
     y: 0
   eccentricity: 0.20559999346733093
+  semiMajorAxis: 0
 --- !u!1 &1964476667
 GameObject:
   m_ObjectHideFlags: 0
@@ -3486,8 +3491,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GravityManager
   metersPerUnit: 100000000
   g: 0.00000000006674
-  simulationSpeed: 86400
-  subSteps: 1
+  simulationSpeed: 864000
+  subSteps: 500
   star: {fileID: 432944799}
 --- !u!1 &2020079967
 GameObject:

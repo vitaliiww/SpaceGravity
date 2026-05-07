@@ -21,6 +21,8 @@ namespace SpaceGravity
         public static void Register(GravityBody2D body) => Bodies.Add(body);
         public static void Unregister(GravityBody2D body) => Bodies.Remove(body);
 
+        public static event Action OnInitialize;
+        
         private void Awake()
         {
             if (!Instance) Instance = this;
@@ -32,6 +34,8 @@ namespace SpaceGravity
             {
                 SetInitialVelocity(body);
             }
+            
+            OnInitialize?.Invoke();
         }
 
         private void FixedUpdate()
@@ -94,7 +98,7 @@ namespace SpaceGravity
             {
                 if (body == other) continue;
 
-                var hill = GravityUtils.HillSphere2D(other, star);
+                var hill = GravityUtils.HillSphere(other, star);
 
                 var dist = Vector2Double.Distance(body.position, other.position);
 
@@ -125,10 +129,7 @@ namespace SpaceGravity
             
             var dir = dominant.position - body.position;
             var r = dir.magnitude;
-
-            var e = body.eccentricity;
-            var a = r / (1.0 - e);
-
+            var a = GravityUtils.SemiMajorAxisByEccentricity(body, r);
             var v = Math.Sqrt(g * dominant.mass * (2.0 / r - 1.0 / a));
 
             var perpendicular = new Vector2Double(-dir.normalized.y, dir.normalized.x);

@@ -20,6 +20,8 @@ namespace SpaceGravity
 
         public static void Register(GravityBody3D body) => Bodies.Add(body);
         public static void Unregister(GravityBody3D body) => Bodies.Remove(body);
+        
+        public static event Action OnInitialize;
 
         private void Awake()
         {
@@ -32,6 +34,8 @@ namespace SpaceGravity
             {
                 SetInitialVelocity(body);
             }
+            
+            OnInitialize?.Invoke();
         }
 
         private void FixedUpdate()
@@ -94,7 +98,7 @@ namespace SpaceGravity
             {
                 if (body == other) continue;
 
-                var hill = GravityUtils.HillSphere3D(other, star);
+                var hill = GravityUtils.HillSphere(other, star);
 
                 var dist = Vector3Double.Distance(body.position, other.position);
 
@@ -126,8 +130,7 @@ namespace SpaceGravity
             var dir = dominant.position - body.position;
             var r = dir.magnitude;
 
-            var e = body.eccentricity;
-            var a = r / (1.0 - e);
+            var a = GravityUtils.SemiMajorAxisByEccentricity(body, r);
             var v = Math.Sqrt(g * dominant.mass * (2.0 / r - 1.0 / a));
 
             var radial = dir.normalized;

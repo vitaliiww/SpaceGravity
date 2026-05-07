@@ -1195,7 +1195,7 @@ MonoBehaviour:
     x: -46000000000
     y: 0
     z: 0
-  eccentricity: 0.20600000023841858
+  eccentricity: 0.6740000247955322
 --- !u!1 &706466796
 GameObject:
   m_ObjectHideFlags: 0
@@ -3757,9 +3757,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpaceGravity.GravityManager3D
   metersPerUnit: 1000000000
   g: 0.00000000006674
-  simulationSpeed: 86400
-  subSteps: 1
+  simulationSpeed: 86400000
+  subSteps: 500
   star: {fileID: 1213200749}
+  drawTrajectory: 1
 --- !u!1 &2020079967
 GameObject:
   m_ObjectHideFlags: 0

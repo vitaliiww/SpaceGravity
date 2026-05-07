@@ -23,13 +23,20 @@ A lightweight, physically accurate 2D and 3D gravity simulation system for Unity
 ```
 SpaceGravity/
 ├── Scripts/
-├──── GravityManager2D.cs   - 2D simulation loop, force integration, initial velocity setup
-├──── GravityManager3D.cs   - 3D simulation loop, force integration, initial velocity setup
-├──── GravityBody2D.cs      - 2D component attached to each planet/moon/star
-├──── GravityBody3D.cs      - 3D component attached to each planet/moon/star
-├──── GravityUtils.cs       - utility functions (Hill sphere calculation)
-├──── Vector2Double.cs      - double-precision 2D vector struct
-├──── Vector3Double.cs      - double-precision 3D vector struct
+├──── Misc/
+├────── Editor/
+├──────── ReadOnlyDrawer.cs   - read-only attribute drawer
+├────── ReadOnlyAttribute.cs  - read-only attribute
+├──── Simulation/
+├────── GravityManager2D.cs   - 2D simulation loop, force integration, initial velocity setup
+├────── GravityManager3D.cs   - 3D simulation loop, force integration, initial velocity setup
+├────── GravityBody2D.cs      - 2D component attached to each planet/moon/star
+├────── GravityBody3D.cs      - 3D component attached to each planet/moon/star
+├────── GravityUtils.cs       - utility functions
+├────── Vector2Double.cs      - double-precision 2D vector struct
+├────── Vector3Double.cs      - double-precision 3D vector struct
+├──── UI/
+├────── CameraController.cs   - camera controls for demo scenes
 ├── Scenes/
 ├──── Demo2D                - 2D Demo scene with Inner Solar System
 └──── Demo3D                - 3D Demo scene with Inner Solar System
@@ -109,7 +116,6 @@ The dominant body for a given object is found by checking which body's [Hill sph
 - **Energy conservation** - Velocity Verlet is significantly more stable than Euler integration, but energy is still not perfectly conserved over very long simulations. For higher accuracy, consider RK4 integration.
 - `position` must be set before Play - it is not synced from `transform.position` on startup
 
-
 ---
  
 ## Roadmap
@@ -118,7 +124,7 @@ The dominant body for a given object is found by checking which body's [Hill sph
 - [ ] **RK4 integration** - better energy conservation for long-running simulations
 - [x] **3D support** - extend `Vector2Double` to `Vector3Double` and support full 3D orbits
 ### Simulation
-- [ ] **Orbital elements at runtime** - expose semi-major axis, period, apoapsis/periapsis as read-only properties on `GravityBody`
+- [x] **Orbital elements at runtime** - expose semi-major axis, period, apoapsis/periapsis as read-only properties on `GravityBody`
 - [ ] **Multi-star systems** - support binary/trinary stars without a single designated star fallback
 ### Editor & Tooling
 - [ ] **Custom Inspector for GravityBody** - visualize Hill sphere and orbit preview directly in the Scene view

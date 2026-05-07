@@ -40,6 +40,7 @@ namespace SpaceGravity
         public static implicit operator Vector3Double(Vector2Double a) => new(a.x, a.y, 0);
     
         public double magnitude => Math.Sqrt(x * x + y * y + z * z);
+        public double sqrMagnitude => x * x + y * y + z * z;
         public Vector3Double normalized => magnitude > 0 ? new(x / magnitude, y / magnitude, z / magnitude) : zero;
     
         public static double Distance(Vector3Double a, Vector3Double b)
